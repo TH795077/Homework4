@@ -69,7 +69,8 @@ $(function() {
 			p.y = 0;
 			p.dy = 1;
 		  } else if(p.y > Q.height) { 
-			Q.stageScene('game');
+			Q.stageScene('title');
+			setTimeout(function(){Q.clearStages(),Q.stageScene('game')}, 5000);
 		  }
 	  });
     },
@@ -128,20 +129,20 @@ Q.scene('title', new Q.Scene(function(stage) {
     }));
     
     
-     /*stage.insert(new Q.Ball({ 
+     stage.insert(new Q.Ball({ 
       //label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
       //color: "white",
       //size:15,
       
-      if(this.y < Q.height){
-      Q.stageScene('title');
-	}
+      //if(this.y < Q.height){
+      //Q.stageScene('title');
+	//}
       x: 50,
       y: 50
 	//Q.clearStages();
     //Q.stageScene('game');
     }));
-  */
+  
     
     stage.insert(new Q.UI.Text({ 
       label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
@@ -155,20 +156,16 @@ Q.scene('title', new Q.Scene(function(stage) {
    
   // stage.insert(new Q.Button
   
-  stage.insert(new Q.UI.Button({
-      label: "A Button",
-      color: "white",
-      y: 150,
-      x: Q.width/2
-    }, onClickfunction() {
-      label = "Pressed";
-    }));
+  
    
    
 }));    
 
 
-	/*	 
+
+setTimeout(function(){Q.clearStages(),Q.stageScene('game')}, 5000);
+//setTimeout(Q.stageScene('test'),3000);
+		 
     Q.scene('game',new Q.Scene(function(stage) {
       stage.insert(new Q.Paddle());
       stage.insert(new Q.Ball());
@@ -187,17 +184,7 @@ Q.scene('title', new Q.Scene(function(stage) {
     //Q.stageScene('game');
    // }));
 
- stage.insert(new Q.UI.Button({
-      label: "Another Button",
-      y: 200,
-      x: Q.width/2,
-      fill: "#990000",
-      border: 5,
-      shadow: 10,
-      shadowColor: "rgba(0,0,0,0.5)",
-    }, function() {
-      Q.stageScene('game');
-    }));
+ 
 
 
 
@@ -216,7 +203,7 @@ Q.scene('title', new Q.Scene(function(stage) {
       });
 
     }));// end q.scene
-    * */
+    
     //Q.stageScene('game');
     Q.stageScene('title');
   });  // end load
