@@ -157,9 +157,117 @@ Q.scene('title', new Q.Scene(function(stage) {
   // stage.insert(new Q.Button
   
   
+}));    // end of title
+
+Q.scene('winGame', new Q.Scene(function(stage) {
+	stage.insert(new Q.UI.Text({ 
+      label: "Congrats\n\n\n ",
+      color: "white",
+      size:30,
+      x: Q.width/2,
+      y: Q.height/2
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
+     stage.insert(new Q.Paddle({ 
+      //label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
+      //color: "white",
+      //size:15,
+      x: Q.width/2,
+      y: Q.height/2
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
+     stage.insert(new Q.Ball({ 
+      //label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
+      //color: "white",
+      //size:15,
+      
+      //if(this.y < Q.height){
+      //Q.stageScene('title');
+	//}
+      x: 50,
+      y: 50
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+  
+    
+    stage.insert(new Q.UI.Text({ 
+      label: " You Win\n\n Let the ball drop to play again",
+      color: "white",
+      size:15,
+      x: Q.width/2,
+      y: Q.height* 2/3
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
    
+  // stage.insert(new Q.Button
+  
+  
+}));    // end of winGame
+
+Q.scene('loseGame', new Q.Scene(function(stage) {
+	stage.insert(new Q.UI.Text({ 
+      label: "Hmmm...\n\n\n ",
+      color: "white",
+      size:30,
+      x: Q.width/2,
+      y: Q.height/2
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
+     stage.insert(new Q.Paddle({ 
+      //label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
+      //color: "white",
+      //size:15,
+      x: Q.width/2,
+      y: Q.height/2
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
+     stage.insert(new Q.Ball({ 
+      //label: " Destroy the blocks by using the\n\n arrow keys or mouse to control the paddle",
+      //color: "white",
+      //size:15,
+      
+      //if(this.y < Q.height){
+      //Q.stageScene('title');
+	//}
+      x: 50,
+      y: 50
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+  
+    
+    stage.insert(new Q.UI.Text({ 
+      label: " You lost\n\n Let the ball drop to play again\n\n (You oviously know how to do that...)",
+      color: "white",
+      size:15,
+      x: Q.width/2,
+      y: Q.height* 2/3
+	//Q.clearStages();
+    //Q.stageScene('game');
+    }));
+    
+    
    
-}));    
+  // stage.insert(new Q.Button
+  
+  
+}));    // end of winGame
 
 
 
@@ -189,8 +297,8 @@ setTimeout(function(){Q.clearStages(),Q.stageScene('game')}, 5000);
 
 
       var blockCount=0;
-      for(var x=0;x<6;x++) {
-        for(var y=0;y<5;y++) {
+      for(var x=0;x<3;x++) {
+        for(var y=0;y<3;y++) {
           stage.insert(new Q.Block({ x: x*50+30, y: y*30+10 }));
           blockCount++;
         }
@@ -198,7 +306,7 @@ setTimeout(function(){Q.clearStages(),Q.stageScene('game')}, 5000);
       stage.on('removeBlock',function() {
         blockCount--;
         if(blockCount == 0) {
-          Q.stageScene('game');
+          Q.stageScene('winGame');
         }
       });
 
