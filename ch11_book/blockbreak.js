@@ -2,6 +2,7 @@
 $(function() {
   var Q = window.Q = Quintus()
                      .include('Input,Sprites,Scenes,UI,Touch')
+                     .controls().touch()
                      .setup();
                    
 
