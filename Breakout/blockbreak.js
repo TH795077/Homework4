@@ -64,14 +64,17 @@ this.p.x = Q.width - this.p.w +30;
 		  if(p.x < 0) { 
 			p.x = 0;
 			p.dx = 1;
+			Q.audio.play('recover.mp3',{ loop: false });
 		  } else if(p.x > Q.width - p.w) { 
 			p.dx = -1;
 			p.x = Q.width - p.w;
+			Q.audio.play('recover.mp3',{ loop: false });
 		  }
 
 		  if(p.y < 0) {
 			p.y = 0;
 			p.dy = 1;
+			Q.audio.play('recover.mp3',{ loop: false });
 		  } else if(p.y > Q.height) { 
 			Q.stageScene('loseGame');
 		  }
@@ -81,10 +84,12 @@ this.p.x = Q.width - this.p.w +30;
 	collision: function(col) {                // collision method
 		if (col.obj.isA("Paddle")) {
 //			alert("collision with paddle");
+			Q.audio.play('powerup.mp3',{ loop: false });
 			this.p.dy = -1;
 		} else if (col.obj.isA("Block")) {
 //			alert("collision with block");
 			col.obj.destroy();
+			Q.audio.play('powerdown.mp3',{ loop: false });
 			this.p.dy *= -1;
 			Q.stage().trigger('removeBlock');
 		}
@@ -106,7 +111,7 @@ this.p.x = Q.width - this.p.w +30;
 // Q.load(['blockbreak.png','blockbreak.json'], function() {
 Q.load(['blockbreak.png','happy.mp3', 'powerup.mp3','recover.mp3','powerdown.mp3'], function() {
 // Q.compileSheets('blockbreak.png','blockbreak.json');
-Q.audio.play('happy.mp3',{ loop: true });
+//Q.audio.play('happy.mp3',{ loop: true });
 Q.sheet("ball", "blockbreak.png", { tilew: 20, tileh: 20, sy: 0, sx: 0 });
 Q.sheet("block", "blockbreak.png", { tilew: 40, tileh: 20, sy: 20, sx: 0 });
 Q.sheet("paddle", "blockbreak.png", { tilew: 60, tileh: 20, sy: 40, sx: 0 });
