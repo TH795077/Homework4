@@ -12,7 +12,7 @@ $(function() {
   });
 
  
-  
+  //Paddle
   Q.Sprite.extend("Paddle", {     // extend Sprite class to create Q.Paddle subclass
     init: function(p) {
       this._super(p, {
@@ -42,6 +42,8 @@ this.p.x = Q.width - this.p.w +30;
 }// end of steop
 });
 
+
+//Ball
   Q.Sprite.extend("Ball", {
     init: function() {
       this._super({
@@ -97,6 +99,7 @@ this.p.x = Q.width - this.p.w +30;
 	}
   });
 
+  //Block
   Q.Sprite.extend("Block", {
     init: function(props) {
       this._super(_(props).extend({ sheet: 'block'}));
@@ -108,14 +111,18 @@ this.p.x = Q.width - this.p.w +30;
     }
   });
 
-//  Q.load(['blockbreak.png','blockbreak.json'], function() {
-// Q.load(['blockbreak.png','blockbreak.json'], function() {
+
 Q.load(['blockbreak.png','happy.mp3', 'powerup.mp3','recover.mp3','powerdown.mp3'], function() {
-// Q.compileSheets('blockbreak.png','blockbreak.json');
+
+
 Q.sheet("ball", "blockbreak.png", { tilew: 20, tileh: 20, sy: 0, sx: 0 });
 Q.sheet("block", "blockbreak.png", { tilew: 40, tileh: 20, sy: 20, sx: 0 });
 Q.sheet("paddle", "blockbreak.png", { tilew: 60, tileh: 20, sy: 40, sx: 0 });
+
+// Title screen
 Q.scene('title', new Q.Scene(function(stage) { // title
+
+
 Q.audio.stop('happy.mp3');//Prevents overlapping
 Q.audio.play('happy.mp3',{ loop: true });
 
@@ -240,6 +247,8 @@ y: Q.height* 2/3
 }));
 
 })); // end of winGame
+
+
 Q.scene('loseGame', new Q.Scene(function(stage) {
 
 var container = stage.insert(new Q.UI.Container({
@@ -259,6 +268,7 @@ button.on("click",function() {
     Q.stageScene('title');
   });
 
+  
 stage.insert(new Q.UI.Text({
 label: " You lose!!  Keep practicing",
 color: "red",
@@ -272,8 +282,9 @@ y: Q.height* 2/3
 
 Q.scene('game',new Q.Scene(function(stage) {
 lives = 3;
-points = 0;
-stage.insert(new Q.UI.Text({
+score = 0;
+
+var livesUpdate = stage.insert(new Q.UI.Text({
 label: "Lives: " + lives,
 color: "white",
 size:15,
@@ -281,14 +292,19 @@ x: Q.width-35,
 y: Q.height * 1/50
 
 }));
-stage.insert(new Q.UI.Text({
-label: "Points: " + points,
+
+
+var scoreUpdate = stage.insert(new Q.UI.Text({
+label: "Score: " + score,
 color: "white",
 size:15,
 x: 35,
+type: 'Q.SPRITE_UI',
 y: Q.height * 1/50
 
 }));
+
+
 stage.insert(new Q.Paddle());
 stage.insert(new Q.Ball());
 
@@ -299,8 +315,24 @@ stage.insert(new Q.Block({ x: x*50+30, y: y*30+35 }));
 blockCount++;
 }
 }
+
+
 stage.on('removeBlock',function() {
 blockCount--;
+score++;
+scoreUpdate.destroy();
+scoreUpdate = stage.insert(new Q.UI.Text({
+label: "Score: " + score,
+color: "white",
+size:15,
+x: 35,
+type:'Q.SPRITE_UI',
+y: Q.height * 1/50
+
+}));
+
+
+
 if(blockCount == 0) {
 Q.stageScene('winGame');
 }
