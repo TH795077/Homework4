@@ -10,7 +10,7 @@ $(function() {
   Q.input.touchControls({ 
             controls:  [ ['left','<' ],[],[],[],['right','>' ] ]
   });
-//Q.input.mouseControls();
+
  
   
   Q.Sprite.extend("Paddle", {     // extend Sprite class to create Q.Paddle subclass
@@ -116,6 +116,7 @@ Q.sheet("ball", "blockbreak.png", { tilew: 20, tileh: 20, sy: 0, sx: 0 });
 Q.sheet("block", "blockbreak.png", { tilew: 40, tileh: 20, sy: 20, sx: 0 });
 Q.sheet("paddle", "blockbreak.png", { tilew: 60, tileh: 20, sy: 40, sx: 0 });
 Q.scene('title', new Q.Scene(function(stage) { // title
+Q.audio.stop('happy.mp3');//Prevents overlapping
 Q.audio.play('happy.mp3',{ loop: true });
 
 var container = stage.insert(new Q.UI.Container({
@@ -147,13 +148,13 @@ y: Q.height * 2/3 +50
 	
 	musicContainer.fit(5);
 	
-	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "green",
                                            label: "Start" }))
 										   
-	var musicOn = musicContainer.insert(new Q.UI.Button({ x:-50,y:60,width:5,size:1, fill: "#CCCCCC",
+	var musicOn = musicContainer.insert(new Q.UI.Button({ x:-50,y:60,width:5,size:1, fill: "green",
                                            label: "ON" }))
 										   
-	var musicOff = musicContainer.insert(new Q.UI.Button({x:50, y: 60,size:1, fill: "#CCCCCC",
+	var musicOff = musicContainer.insert(new Q.UI.Button({x:50, y: 60,size:1, fill: "red",
                                            label: "OFF" }));
 										   
 
@@ -162,22 +163,20 @@ button.on("click",function() {
 	Q.clearStages();
     Q.stageScene('game');
 	
-	//Q.audio.stop("happy.mp3");
   });
   
   musicOff.on("click",function() {
-    //Q.clearStages();
-    //Q.stageScene('game');
+	
 	Q.audio.stop("happy.mp3");
-	//hidden = false;
+	
   });
   
   musicOn.on("click",function() {
-  Q.audio.stop("happy.mp3");
-    //Q.clearStages();
-    //Q.stageScene('game');
+  
+	Q.audio.stop("happy.mp3");// prevents the song from overlapping with itself
+    
 	Q.audio.play('happy.mp3',{ loop: true });
-	//hidden = false;
+	
 	
   });
 
@@ -188,8 +187,7 @@ color: "white",
 size:30,
 y: Q.height * 1/3,
  x: Q.width/2
-//Q.clearStages();
-//Q.stageScene('game');
+
 }));
 
 stage.insert(new Q.UI.Text({
@@ -202,7 +200,7 @@ y: Q.height* 2/3
 }));
 
 stage.insert(new Q.UI.Text({
-label: " Don't like the music?",
+label: " Don't like the music? Turn it off.",
 color: "orange",
 size:14,
 x: Q.width/2,
@@ -216,7 +214,7 @@ y: Q.height* 2/3+50
 Q.scene('winGame', new Q.Scene(function(stage) {
 
 var container = stage.insert(new Q.UI.Container({
-      fill: "gray",
+      fill: "green",
       border: 5,
       shadow: 10,
       shadowColor: "rgba(0,0,0,0.5)",
@@ -225,7 +223,7 @@ var container = stage.insert(new Q.UI.Container({
 	  y: Q.height/2
     }));
 	
-	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "green",
                                            label: "Play again" }))
 
 button.on("click",function() {
@@ -234,8 +232,8 @@ button.on("click",function() {
   });
 
 stage.insert(new Q.UI.Text({
-label: " Congrats!! \n\nYou Win!!",
-color: "white",
+label: " Congrats!! You Win!!",
+color: "green",
 size:15,
 x: Q.width/2,
 y: Q.height* 2/3
@@ -245,7 +243,7 @@ y: Q.height* 2/3
 Q.scene('loseGame', new Q.Scene(function(stage) {
 
 var container = stage.insert(new Q.UI.Container({
-      fill: "gray",
+      fill: "red",
       border: 5,
       shadow: 10,
       shadowColor: "rgba(0,0,0,0.5)",
@@ -253,7 +251,7 @@ var container = stage.insert(new Q.UI.Container({
 	  y: Q.height/2
     }));
 	
-	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC",
+	var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "red",
                                            label: "Play again" }))
 
 button.on("click",function() {
@@ -262,8 +260,8 @@ button.on("click",function() {
   });
 
 stage.insert(new Q.UI.Text({
-label: " You lose!!\n\nKeep practicing",
-color: "white",
+label: " You lose!!  Keep practicing",
+color: "red",
 size:15,
 x: Q.width/2,
 y: Q.height* 2/3
